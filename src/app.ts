@@ -30,7 +30,7 @@ class App {
     }
     private initializeControllers(controllers: Controller[]) {
         controllers.forEach((controller) => {
-            this.express.use('api', controller.router);
+            this.express.use('/api', controller.router);
         });
     }
     public listen(): void {
