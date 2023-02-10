@@ -47,7 +47,7 @@
         "zod": "^3.20.6"
     },
     "author": "Alamin Hossain",
-    "repository": "",
+    "repository": "git@github.com:AlaminMJ/typescript-Project.git",
     "_moduleAliases": {
         "@/resources": "dist/resources",
         "@/utils": "dist/utils",
