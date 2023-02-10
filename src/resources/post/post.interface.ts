@@ -1,5 +1,6 @@
-import mongoose from 'mongoose';
-export interface Post extends mongoose.Document {
-  title: string;
-  message: string;
+import { Document } from 'mongoose';
+interface Post extends Document {
+    title: string;
+    body: string;
 }
+export default Post;
