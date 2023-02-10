@@ -35,7 +35,9 @@ class App {
     }
     public listen(): void {
         this.express.listen(this.port, () => {
-            console.log('server is running on port ' + this.port);
+            console.log(
+                `Server is running on port ${this.port} on ${process.env.NODE_ENV} mode`
+            );
         });
     }
     private initializeErrorHandling(): void {
