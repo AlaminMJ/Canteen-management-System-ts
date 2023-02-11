@@ -1,5 +1,5 @@
 import HttpException from '@/utils/exceptions/http.exception';
-import { Controller } from '../../utils/interface/controller.interface';
+import { Controller } from '@/utils/interface/controller.interface';
 import { Router, Request, Response, NextFunction, Application } from 'express';
 import PostService from './post.service';
 
