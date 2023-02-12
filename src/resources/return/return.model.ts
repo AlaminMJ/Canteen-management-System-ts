@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
-import Product from './purchase.interface';
-const purchaseSchema = new Schema(
+import Return from './return.interface';
+const returnSchema = new Schema(
   {
     date: { type: Date, require: true },
     voucherNo: { type: String },
@@ -17,4 +17,4 @@ const purchaseSchema = new Schema(
   }
 );
 
-export default model<Product>('Purchase', purchaseSchema);
+export default model<Return>('Return', returnSchema);
