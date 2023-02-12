@@ -1,3 +1,10 @@
+import { Schema } from 'mongoose';
 export default interface Product {
-  name: string;
+  date: Date;
+  voucherNo: string | undefined;
+  products: {
+    productID: Schema.Types.ObjectId;
+    qunatity: number;
+    price: Number;
+  }[];
 }
