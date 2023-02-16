@@ -11,7 +11,6 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
-export default model<User>('User', userSchema);
 userSchema.methods.verifyPassword = async function (
   password: string
 ): Promise<boolean> {
@@ -26,3 +25,4 @@ userSchema.pre<User>('save', async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+export default model<User>('User', userSchema);

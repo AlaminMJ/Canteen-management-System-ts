@@ -1,2 +1,1 @@
-### typescript-Project
-
+### Canteen Management System
