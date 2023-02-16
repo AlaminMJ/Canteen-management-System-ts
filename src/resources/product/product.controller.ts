@@ -3,16 +3,17 @@ import HttpException from '@/utils/exceptions/http.exception';
 import { Controller } from '@/utils/interface/controller.interface';
 import { NextFunction, Router, Request, Response } from 'express';
 import Product from './product.interface';
-import ProductService from './product.service';
+import ProductService, { ProductInterface } from './product.service';
 import productSchema from './product.validation';
 
 class ProductController implements Controller {
   public path = '/products';
   public router = Router();
-  private Product = new ProductService();
+  private Product: ProductInterface;
 
   constructor() {
     this.initializeRouter();
+    this.Product = new ProductService();
   }
   private initializeRouter(): void {
     this.router.post(`${this.path}`, validation(productSchema), this.create);
