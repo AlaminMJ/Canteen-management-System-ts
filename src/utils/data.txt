@@ -1,0 +1,4 @@
+PORT = 5001
+MONGO_URL= mongodb+srv://@cluster0.begpz.mongodb.net/?retryWrites=true&w=majority
+NODE_ENV = development
+JWT_SECRET = "jajka"
