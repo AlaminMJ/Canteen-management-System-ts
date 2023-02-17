@@ -7,6 +7,8 @@ import ReturnController from './resources/return/return.controller';
 import PurchaseController from './resources/purchase/purchase.controller';
 import UserController from './resources/user/user.controller';
 import SellController from './resources/sell/sell.controller';
+import { Server } from 'socket.io';
+import { createServer } from 'http';
 validateEnv();
 const app = new App(
     [
@@ -18,4 +20,11 @@ const app = new App(
     ],
     Number(process.env.PORT)
 );
-app.listen();
+const server=createServer(app.express)
+server.listen(process.env.PORT,()=>{
+    console.log(`Server is runing on port ${process.env.PORT}`)
+})
+const io = new Server(server)
+io.on('connection',(socket)=>{
+    console.log(socket)
+})
