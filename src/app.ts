@@ -40,6 +40,7 @@ class App {
             dbName: 'typescript',
         });
         console.log('Database connect successfully');
+        process.exit(1)
     }
     private initializeControllers(controllers: Controller[]) {
         controllers.forEach((controller) => {

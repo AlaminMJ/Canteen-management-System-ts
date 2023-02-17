@@ -11,7 +11,8 @@ const errorHandler = (
     const message = error.message || 'Internal Server Error';
     const status = error.status || 400;
     if (error instanceof ZodError) {
-        console.log('Zod Error');
+        const jsonError = error.flatten().fieldErrors
+        res.status(405).json(jsonError)
     }
 
     res.status(status).json({ message });

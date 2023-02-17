@@ -4,7 +4,7 @@ const validation =
     (schema: AnyZodObject) =>
     (req: Request, res: Response, next: NextFunction) => {
         try {
-            schema.parse(req.body);
+            schema.parse(req);
             next();
         } catch (error) {
             next(error);
