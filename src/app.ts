@@ -3,14 +3,16 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import 'dotenv/config';
-import fs from 'fs';
-import path from 'path';
+
 import { Controller } from './utils/interface/controller.interface';
 import compression from 'compression';
 import errorHandler from './middleware/errorHandler';
 import mongoose from 'mongoose';
-const logFilePath = path.join(__dirname, 'logs', 'access.log');
-const accessLogStream = fs.createWriteStream(logFilePath, { flags: 'a' });
+import rateLimit from 'express-rate-limit';
+import session, { SessionOptions } from 'express-session';
+import mongoSanitize from 'express-mongo-sanitize';
+import cookieParser from 'cookie-parser';
+
 class App {
     public express: Application;
     public port: number;
@@ -23,19 +25,43 @@ class App {
         this.initializeRoute();
         this.initializeErrorHandling();
     }
+    // initialize All Middleware
     private initializeMiddleware(): void {
         this.express.use(morgan('tiny'));
         this.express.use(express.json());
-        this.express.use(helmet());
-        this.express.use(cors());
+        this.express.use(rateLimit({ max: 3000, windowMs: 10 * 60 * 60 }));
+        this.express.use(mongoSanitize());
+        this.express.use(
+            session({
+                secret: 'mysecretkey',
+                resave: false,
+                saveUninitialized: false,
+                cookie: {
+                    secure: true,
+                    httpOnly: true,
+                    maxAge: 3600000,
+                },
+            })
+        );
+        this.express.use(cookieParser());
+        this.express.use(
+            cors({
+                origin: '*',
+                methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+                credentials: true,
+            })
+        );
         this.express.use(express.urlencoded({ extended: false }));
         this.express.use(compression());
     }
+    // SetUp All Routers
+
     private initializeRoute() {
         this.express.get('/health', (req: Request, res: Response) => {
             res.status(200).json({ message: 'OK' });
         });
     }
+    // Connection on Database
     private async initializeDatabaseConnection(): Promise<void> {
         mongoose.set({ strictQuery: false });
         await mongoose.connect(process.env.MONGO_URL as string, {
@@ -44,14 +70,18 @@ class App {
         console.log('Database connect successfully');
         process.exit(1);
     }
+
+    // Setting All controller and Router
     private initializeControllers(controllers: Controller[]) {
         controllers.forEach((controller) => {
             this.express.use('/api', controller.router);
         });
     }
+    // Error Handler
     private initializeErrorHandling(): void {
         this.express.use(errorHandler);
     }
+    // App Listener
     public listen(): void {
         this.express.listen(this.port, () => {
             console.log(`Server is running at port ${this.port}`);
