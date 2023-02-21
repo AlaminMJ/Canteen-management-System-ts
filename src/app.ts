@@ -3,12 +3,14 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import 'dotenv/config';
+import fs from 'fs';
+import path from 'path';
 import { Controller } from './utils/interface/controller.interface';
-// import mongoose from 'mongoose';
 import compression from 'compression';
 import errorHandler from './middleware/errorHandler';
 import mongoose from 'mongoose';
-
+const logFilePath = path.join(__dirname, 'logs', 'access.log');
+const accessLogStream = fs.createWriteStream(logFilePath, { flags: 'a' });
 class App {
     public express: Application;
     public port: number;
@@ -22,7 +24,7 @@ class App {
         this.initializeErrorHandling();
     }
     private initializeMiddleware(): void {
-        this.express.use(morgan('dev'));
+        this.express.use(morgan('tiny'));
         this.express.use(express.json());
         this.express.use(helmet());
         this.express.use(cors());
@@ -40,7 +42,7 @@ class App {
             dbName: 'typescript',
         });
         console.log('Database connect successfully');
-        process.exit(1)
+        process.exit(1);
     }
     private initializeControllers(controllers: Controller[]) {
         controllers.forEach((controller) => {
@@ -50,8 +52,11 @@ class App {
     private initializeErrorHandling(): void {
         this.express.use(errorHandler);
     }
-
-  
+    public listen(): void {
+        this.express.listen(this.port, () => {
+            console.log(`Server is running at port ${this.port}`);
+        });
+    }
 }
 
 export default App;

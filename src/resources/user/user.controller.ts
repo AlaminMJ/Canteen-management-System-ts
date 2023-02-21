@@ -1,19 +1,18 @@
-import validation from '@/middleware/validation';
 import { Response, Router, NextFunction, Request } from 'express';
 import { Controller } from '@/utils/interface/controller.interface';
 import User from './user.interface';
 import UserService from './user.service';
-import v from './user.validation';
+
 class UserController implements Controller {
-    public path = '/users';
+    public path = '/user';
     public router = Router();
     private User = new UserService();
     constructor() {
         this.initializeRouter();
     }
     private initializeRouter(): void {
-        this.router.post(`${this.path}`, validation(v.create), this.create);
-        this.router.get(`${this.path}`, this.getUser);
+        this.router.get(`${this.path}/id`, this.getUser);
+        this.router.get(`${this.path}`, this.getAllUser);
     }
 
     /**
@@ -26,6 +25,16 @@ class UserController implements Controller {
      *
      * */
     private async getUser(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<User[] | void> {
+        try {
+            const {} = req.body;
+        } catch (error) {}
+    }
+    //
+    private async getAllUser(
         req: Request,
         res: Response,
         next: NextFunction
