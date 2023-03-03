@@ -1,11 +1,11 @@
 import { Controller } from '@/utils/interface/controller.interface';
 import { NextFunction, Router, Request, Response } from 'express';
-import UserService from '../user/user.service';
+import AuthService from './auth.service';
 
 class AuthController implements Controller {
   public path = '/auth';
   public router = Router();
-  private User = new UserService();
+  private auth = new AuthService();
 
   // Initialize
   constructor() {
@@ -25,8 +25,9 @@ class AuthController implements Controller {
     next: NextFunction
   ): Promise<void> => {
     try {
-      console.log(req.body);
-      res.status(200).json({ message: 'you are logged in' });
+      const { email, password } = req.body;
+      const user = this.auth.findByEmail(email);
+      user.isMatchPassword(password);
     } catch (error) {
       next(error);
     }
@@ -38,7 +39,11 @@ class AuthController implements Controller {
     res: Response,
     next: NextFunction
   ): Promise<void> => {
-    res.status(200).json({ message: 'you are registered' });
+    try {
+      const { name, email, password } = req.body;
+      const user = await this.auth.create(name, email, password);
+      res.status(201).json({ status: 'Success', data: user });
+    } catch (error) {}
   };
   // verify User Logic
   private verify = async (
