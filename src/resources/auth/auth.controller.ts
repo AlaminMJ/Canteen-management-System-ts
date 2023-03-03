@@ -27,7 +27,7 @@ class AuthController implements Controller {
     try {
       const { email, password } = req.body;
       const user = this.auth.findByEmail(email);
-      user.isMatchPassword(password);
+      // user.isMatchPassword(password);
     } catch (error) {
       next(error);
     }
