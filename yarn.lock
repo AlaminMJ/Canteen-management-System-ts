@@ -1048,13 +1048,6 @@
   dependencies:
     dotenv "*"
 
-"@types/express-mongo-sanitize@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@types/express-mongo-sanitize/-/express-mongo-sanitize-2.1.0.tgz#e0ac0db7aaf35d27375dcb4b5684c786322f6cf5"
-  integrity sha512-m0JsxN7Jwlo/S4TjaHewmRs392QeQ9ATconFNxxV+y349/e7tsQA/LiCThjSoETV+xiM5fwVvwWV8474OKJ+ig==
-  dependencies:
-    express-mongo-sanitize "*"
-
 "@types/express-rate-limit@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@types/express-rate-limit/-/express-rate-limit-6.0.0.tgz#11a314477895a8a888958f27650ed0d1ddad01b0"
@@ -2326,7 +2319,7 @@ event-stream@=3.3.4:
     stream-combiner "~0.0.4"
     through "~2.3.1"
 
-express-mongo-sanitize@*, express-mongo-sanitize@^2.2.0:
+express-mongo-sanitize@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/express-mongo-sanitize/-/express-mongo-sanitize-2.2.0.tgz#c8c2d45e137f213950f70bf586704e0db5cfe356"
   integrity sha512-PZBs5nwhD6ek9ZuP+W2xmpvcrHwXZxD5GdieX2dsjPbAbH4azOkrHbycBud2QRU+YQF1CT+pki/lZGedHgo/dQ==
