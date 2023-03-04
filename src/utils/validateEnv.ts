@@ -5,6 +5,8 @@ function validateEnv(): void {
             choices: ['development', 'production'],
         }),
         MONGO_URL: str(),
+        JWT_SECRET: str(),
+        JWT_SECRET_REFRESH: str(),
         PORT: port({ default: 3000 }),
     });
 }
