@@ -1,6 +1,7 @@
 import { Controller } from '@/utils/interface/controller.interface';
 import { NextFunction, Router, Request, Response } from 'express';
 import AuthService from './auth.service';
+import {createToken} from '@/utils/token'
 
 class AuthController implements Controller {
   public path = '/auth';
@@ -42,7 +43,8 @@ class AuthController implements Controller {
     try {
       const { name, email, password } = req.body;
       const user = await this.auth.create(name, email, password);
-      res.status(201).json({ status: 'Success', data: user });
+      const token = createToken(user)
+      res.status(201).json({ status: 'Success', data: user,token });
     } catch (error) {}
   };
   // verify User Logic

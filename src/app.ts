@@ -65,9 +65,14 @@ class App {
   // Connection on Database
   private async initializeDatabaseConnection(): Promise<void> {
     mongoose.set({ strictQuery: false });
-    await mongoose.connect(process.env.MONGO_URL as string, {
-      dbName: 'typescript'
-    });
+   
+    try {
+      await mongoose.connect(process.env.MONGO_URL as string, {
+        dbName: 'typescript'
+      });
+    } catch (error) {
+      process.exit(1);
+    }
   }
 
   // Setting All controller and Router
