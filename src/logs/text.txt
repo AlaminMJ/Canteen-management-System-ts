@@ -1,0 +1,1 @@
+ // "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
