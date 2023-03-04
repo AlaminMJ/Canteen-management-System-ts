@@ -4,7 +4,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import 'dotenv/config';
-import favicon from 'express-favicon';
 import { Controller } from './utils/interface/controller.interface';
 import compression from 'compression';
 import errorHandler from './middleware/errorHandler';
@@ -29,7 +28,6 @@ class App {
   // initialize All Middleware
   private initializeMiddleware(): void {
     this.express.use(morgan('tiny'));
-    this.express.use(favicon(__dirname + '/public/favicon.ico'));
     this.express.use(express.json());
     this.express.use(rateLimit({ max: 3000, windowMs: 10 * 60 * 60 }));
     this.express.use(mongoSanitize());
