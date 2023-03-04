@@ -2326,11 +2326,6 @@ event-stream@=3.3.4:
     stream-combiner "~0.0.4"
     through "~2.3.1"
 
-express-favicon@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/express-favicon/-/express-favicon-2.0.4.tgz#1b5217dcd797d2d4f82ea0f521a6b0089c566a8e"
-  integrity sha512-JDGzumJdwF+WcJf+qwyhdpF1yzducuMCxZa+G6hxR3hor7ae/1CqpAPj8FXCGaGtqBA6ExDMfeszjuYRw5GUuQ==
-
 express-mongo-sanitize@*, express-mongo-sanitize@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/express-mongo-sanitize/-/express-mongo-sanitize-2.2.0.tgz#c8c2d45e137f213950f70bf586704e0db5cfe356"
